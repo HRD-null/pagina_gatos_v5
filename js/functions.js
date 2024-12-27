@@ -18,6 +18,7 @@ function solicitarNombre() {
 }
 
 // Función para procesar la información: mostrar saludo y preguntar por el newsletter
+
 async function procesarInformacion(nombre) {
     if (nombre) {
         // Mostrar saludo personalizado en la página
@@ -26,6 +27,7 @@ async function procesarInformacion(nombre) {
 
         // Obtener el número de correos registrados
         const totalCorreos = await obtenerConteoCorreos();
+        // const totalCorreos = await mostrarConteoCorreosRegistrados();
 
         // Recuperar usuario del localStorage
         const usuario = JSON.parse(localStorage.getItem("usuario")) || { nombre: nombre, correo: null };
@@ -55,12 +57,15 @@ async function procesarInformacion(nombre) {
 // Función para obtener el conteo de correos desde el servidor
 async function obtenerConteoCorreos() {
     try {
-        const response = await fetch("http://localhost:3000/contarCorreos");
+        const response = await fetch('http://localhost:3000/contarCorreos');
+        if (!response.ok) {
+            throw new Error(`Error en la respuesta del servidor: ${response.statusText}`);
+        }
         const data = await response.json();
-        return data.total;
+        return data.total; // Devuelve el total de correos
     } catch (error) {
-        console.error("Error al obtener el conteo de correos:", error);
-        return 0; // Si hay error, devuelve 0
+        console.error('Error al obtener el conteo de correos:', error);
+        return 0; // Si hay un error, devuelve 0
     }
 }
 
