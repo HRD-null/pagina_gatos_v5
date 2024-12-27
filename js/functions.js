@@ -69,7 +69,7 @@ async function obtenerConteoCorreos() {
     }
 }
 
-// Función para mostrar el resultado final
+// Función para mostrar el resultado final XD
 function mostrarResultado() {
     // Verificar si el mensaje ya se mostró
     const mensajeMostrado = localStorage.getItem("mensajeMostrado");
